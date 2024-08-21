@@ -1,9 +1,38 @@
+<?php
+session_start();
+
+// Cek apakah sudah login
+if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true) {
+    header("Location: admin.php"); // Redirect ke halaman admin jika sudah login
+    exit();
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Ambil username dan password dari form
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    // Hardcoded username dan password
+    $valid_username = 'admin';
+    $valid_password = '12345';
+
+    // Validasi username dan password
+    if ($username === $valid_username && $password === $valid_password) {
+        $_SESSION['admin_logged_in'] = true; // Set session login admin
+        header("Location: admin.php"); // Redirect ke halaman admin
+        exit();
+    } else {
+        $error_message = "Invalid Username or Password";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Custom Login</title>
+    <title>Admin Login</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body, html {
@@ -78,7 +107,7 @@
 
     <div class="login-container">
         <h2>Login Admin</h2>
-        <form id="loginForm" method="POST" onsubmit="return validateLogin()">
+        <form method="POST">
             <div class="input-group">
                 <input type="text" name="username" id="username" placeholder="Username" required>
             </div>
@@ -87,7 +116,9 @@
                 <i class="fas fa-eye show-password" onclick="togglePassword()"></i>
             </div>
             <input type="submit" value="Login">
-            <div id="errorMessage" class="error-message"></div>
+            <div id="errorMessage" class="error-message">
+                <?php if (isset($error_message)) echo $error_message; ?>
+            </div>
         </form>
     </div>
 
@@ -104,22 +135,6 @@
                 passwordInput.type = "password";
                 eyeIcon.classList.remove("fa-eye-slash");
                 eyeIcon.classList.add("fa-eye");
-            }
-        }
-
-        function validateLogin() {
-            const username = document.getElementById("username").value;
-            const password = document.getElementById("password").value;
-            const errorMessage = document.getElementById("errorMessage");
-
-            // Custom validation for username and password
-            if (username === "admin" && password === "12345") {
-                alert("Login Successful!");
-                window.location.href = "admin.php"; 
-                return false; 
-            } else {
-                errorMessage.textContent = "Invalid Username or Password";
-                return false;
             }
         }
     </script>

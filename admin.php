@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+// Cek apakah sesi admin ada
+if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
+    header("Location: login_admin.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -185,7 +195,8 @@
         <nav>
             <ul>
                 <li><a href="input_kelas.php">Add Class</a></li>
-                <li><a href="dashboard.php">Dashboard</a></li>
+                
+                <li><a href="logout_admin.php">Logout</a></li>
             </ul>
         </nav>
     </header>

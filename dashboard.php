@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+// Cek login
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");  
+    exit();  
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,7 +48,6 @@
             margin-left: 200px;
         }
 
-
         header nav ul {
             list-style: none;
             margin: 0;
@@ -73,7 +82,7 @@
             font-size: 100px;
             margin-bottom: 20px;
         }
-        .hero h2{
+        .hero h2 {
             font-size: 30px;
             margin-bottom: 50px;
         }
@@ -103,7 +112,6 @@
         .hero .card h3 {
             margin-bottom: 10px;
         }
-        
 
         /* Top Products Section */
         .products {
@@ -111,15 +119,15 @@
             text-align: center;
             display: flex;
             flex-direction: column;
-            align-items: center; /* Menyusun grid di tengah secara horizontal */
-            justify-content: center; /* Menyusun grid di tengah secara vertikal */
-            min-height: 100vh; /* Membuat section minimal setinggi viewport */
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
         }
         .products h2 {
             font-size: 32px;
             margin-bottom: 0px;
         }
-        .products p{
+        .products p {
             font-size: 20px;
             margin-bottom: 70px;
         }
@@ -128,8 +136,8 @@
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 80px;
-            justify-content: center; /* Menyusun grid di tengah secara horizontal */
-            align-items: center; /* Menyusun grid di tengah secara vertikal */
+            justify-content: center;
+            align-items: center;
         }
 
         .product-card {
@@ -138,7 +146,7 @@
             overflow: hidden;
             text-align: left;
             position: relative;
-            cursor: pointer; /* Menambahkan cursor pointer */
+            cursor: pointer;
             transition: transform 0.3s ease;
         }
 
@@ -182,8 +190,8 @@
             box-sizing: border-box;
         }
         .search-icon {
-            font-size: 28px; /* Atur sesuai kebutuhan, misalnya 24px */
-            color: #ccc; /* Warna ikon */
+            font-size: 28px;
+            color: #ccc;
             position: absolute;
             top: 50%;
             left: 50px;
@@ -191,15 +199,14 @@
             pointer-events: none;
         }
 
-         /* Footer Section */
-         footer {
+        /* Footer Section */
+        footer {
             background-color: #111;
             color: white;
             padding: 20px;
             padding-left: 50px;
             display: flex;
             justify-content: space-between;
-           
             align-items: center;
         }
 
@@ -209,9 +216,7 @@
 
         footer .contact-info i {
             margin-right: 10px;
-            
         }
-       
 
         /* Responsive Styles */
         @media (max-width: 1200px) {
@@ -246,73 +251,95 @@
 <body>
 
     <header>
-        <div class="logo"> EzLearning</div>
-        <div class="dashboard"> Dashboard</div>
+        <div class="logo">EzLearning</div>
+        <div class="dashboard">Dashboard</div>
         <nav>
             <ul>
                 <li><a href="#">Home</a></li>
                 <li><a href="#footer">Contact</a></li>
                 <li><a href="myclass.php">MyClass</a></li>
-                <li><a href="index.php">Log Out</a></li>
-                
+                <li><a href="logout.php">Log Out</a></li>
             </ul>
         </nav>
     </header>
 
     <section class="hero">
         <h1>Find Quality Courses Only Here</h1>
-        <h2>Discover the experience of exploring high quality Courses according to your needs</h2>
+        <h2>Discover the experience of exploring high-quality Courses according to your needs</h2>
         <div class="input-container">
-                <input type="text" name="text" placeholder="search" required>
-                <i class="fas fa-search search-icon"></i>
+            <input type="text" id="searchInput" placeholder="Search" required>
+            <i class="fas fa-search search-icon"></i>
         </div>
     </section>
 
-
-
     <section class="products">
-    <h2>Availble Courses</h2>
-    <p>find your suitable courses based on your opportunities</p>
-    <div class="products-grid">
-        <?php
-        include 'db.php'; // Menghubungkan ke database
+        <h2>Available Courses</h2>
+        <p>Find your suitable courses based on your opportunities</p>
+        <div class="products-grid">
+            <?php
+            include 'db.php'; // Menghubungkan ke database
 
-        $query = "SELECT * FROM kelas";
-        $result = mysqli_query($conn, $query);
-        
-        if (mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo "<a href='detail_kelas.php?id=" . $row['id'] . "' class='product-card' style='position: relative; text-decoration: none;'>";
-                echo "<img src='" . $row['gambar_kelas'] . "' alt='" . $row['nama_kelas'] . "' style='width: 100%; height: 400px; object-fit: cover;'>";
-                echo "<div class='product-info' style='position: absolute;background-color: rgba(0, 0, 0, 0.4); padding: 10px; bottom: 0px; left: 0px; right: 0px; color: white;'>";
-                echo "<p style='font-size: 20px; margin-left: 10px; font-weight: bold; margin-bottom: 5px;'>Rp. " . number_format($row['harga'], 2, ',', '.') . "</p>"; // Harga, format mata uang
-                echo "<p style='font-size: 20px; margin-left: 10px; font-weight: bold; margin-bottom: 15px;'>" . $row['nama_kelas'] . "</p>"; // Nama Kelas
-                echo "<p style='font-size: 15px; margin: 0; display: flex; margin-left: 10px; align-items: center;'>";
-                echo "<img src='img/toko.png' alt='Toko Icon' style='width: 20px; height: 20px; margin-right: 5px;'>"; // Ikon Toko
-                echo $row['nama_toko'] . "</p>";
-                echo "</div>";
-                echo "</a>";
+            $query = "SELECT * FROM kelas";
+            $result = mysqli_query($conn, $query);
+            
+            if (mysqli_num_rows($result) > 0) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    echo "<a href='detail_kelas.php?id=" . $row['id'] . "' class='product-card' id='card-" . $row['id'] . "' style='position: relative; text-decoration: none;'>";
+                    echo "<img src='" . $row['gambar_kelas'] . "' alt='" . $row['nama_kelas'] . "' style='width: 100%; height: 400px; object-fit: cover;'>";
+                    echo "<div class='product-info' style='position: absolute;background-color: rgba(0, 0, 0, 0.4); padding: 10px; bottom: 0px; left: 0px; right: 0px; color: white;'>";
+                    echo "<p style='font-size: 20px; margin-left: 10px; font-weight: bold; margin-bottom: 5px;'>Rp. " . number_format($row['harga'], 2, ',', '.') . "</p>";
+                    echo "<p style='font-size: 20px; margin-left: 10px; font-weight: bold; margin-bottom: 15px;' class='course-name'>" . $row['nama_kelas'] . "</p>";
+                    echo "<p style='font-size: 15px; margin: 0; display: flex; margin-left: 10px; align-items: center;'>";
+                    echo "<img src='img/toko.png' alt='Toko Icon' style='width: 20px; height: 20px; margin-right: 5px;'>";
+                    echo $row['nama_toko'] . "</p>";
+                    echo "</div>";
+                    echo "</a>";
+                }
+            } else {
+                echo "No classes found.";
             }
-        } else {
-            echo "No classes found.";
-        }
 
-        // Tutup koneksi database
-        $conn->close();
-        ?>
-    </div>
-</section>
+            // Tutup koneksi database
+            $conn->close();
+            ?>
+        </div>
+    </section>
 
-    <footer id="footer"> <!-- Added id to footer -->
+    <footer id="footer">
         <div class="contact-info">
             <p><i class="fas fa-envelope"></i> Email: ezlearning@gmail.com</p>
             <p><i class="fas fa-phone"></i> Phone: +123-456-7890</p>
             <p><i class="fas fa-map-marker-alt"></i> Jalan Kaliurang No. 123, Jogja, Indonesia</p>
             <a href="login_admin.php">Admin</a>
-            <p>&nbsp;&nbsp;</p>
             <p>&copy; 2024 EzLearning. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            const cards = document.querySelectorAll('.product-card');
+            
+            let firstVisibleCard = null;
+
+            cards.forEach(card => {
+                const cardTitle = card.querySelector('.course-name').textContent.toLowerCase();
+                if (cardTitle.includes(query)) {
+                    card.style.display = 'block';
+                    if (!firstVisibleCard) {
+                        firstVisibleCard = card;
+                    }
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Scroll to the first visible card
+            if (firstVisibleCard) {
+                firstVisibleCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    </script>
 
 </body>
 </html>

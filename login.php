@@ -33,7 +33,6 @@
         .input-container {
             position: relative;
             margin-bottom: 20px;
-            
         }
         input[type="text"], input[type="password"] {
             width: calc(100% - 20px);
@@ -56,7 +55,7 @@
             width: calc(100% - 20px);
             margin-top: 30px;
             padding: 15px;
-            margin-left:20px;
+            margin-left: 20px;
             background-color: #007bff;
             border: none;
             border-radius: 5px;
