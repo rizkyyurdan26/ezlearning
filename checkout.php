@@ -1,6 +1,6 @@
 <?php
 // Koneksi ke database
-$conn = new mysqli("localhost", "root", "", "user_login");
+include 'db.php';
 
 // Periksa koneksi
 if ($conn->connect_error) {
