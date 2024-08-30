@@ -53,8 +53,10 @@
 
         /* Hero Section */
         .hero {
-            background: url('img/bg2.jpg') no-repeat center center/cover;
-            height: 100vh;
+            background: url('img/bg2.jpg') no-repeat center center; /* Tetap gunakan ini */
+            background-size: cover; /* Agar gambar memenuhi seluruh hero section */
+            min-height: 100vh; /* Ubah height jadi min-height untuk fleksibilitas */
+            background-attachment: fixed; /* Agar gambar tetap di tempat saat di-scroll */
             color: white;
             text-align: center;
             display: flex;
@@ -114,7 +116,7 @@
             align-items: center; /* Menyusun grid di tengah secara horizontal */
             justify-content: center; /* Menyusun grid di tengah secara vertikal */
             min-height: 100vh;
-            margin-top: -100px;
+            margin-top: 0px;
         }
         .products h2 {
             font-size: 32px;
@@ -204,6 +206,8 @@
 
             .hero {
                 height: 400px;
+                min-height: 60vh;
+                background-position: center;
             }
 
             .hero .card {

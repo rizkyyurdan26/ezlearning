@@ -67,7 +67,7 @@ if (!isset($_SESSION['username'])) {
 
         /* Hero Section */
         .hero {
-            background: url('img/bg2.jpg') no-repeat center center/cover;
+            background: url('') no-repeat center center/cover;
             height: 1000px;
             color: white;
             text-align: center;
@@ -175,9 +175,9 @@ if (!isset($_SESSION['username'])) {
             border-radius: 5px;
         }
 
-        .input-container {
+        .product-logo {
             position: relative;
-            margin-top: 50px;
+            margin-top: -20px;
         }
         input[type="text"] {
             width: 700px;
@@ -263,18 +263,13 @@ if (!isset($_SESSION['username'])) {
         </nav>
     </header>
 
-    <section class="hero">
-        <h1>Find Quality Courses Only Here</h1>
-        <h2>Discover the experience of exploring high-quality Courses according to your needs</h2>
-        <div class="input-container">
-            <input type="text" id="searchInput" placeholder="Search" required>
-            <i class="fas fa-search search-icon"></i>
-        </div>
-    </section>
-
     <section class="products">
         <h2>Available Courses</h2>
         <p>Find your suitable courses based on your opportunities</p>
+        <p class="product-logo">
+            <input type="text" id="searchInput" placeholder="Search" required>
+            <i class="fas fa-search search-icon"></i>
+        </p>
         <div class="products-grid">
             <?php
             include 'db.php'; // Menghubungkan ke database
