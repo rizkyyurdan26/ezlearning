@@ -357,6 +357,7 @@
             <p><i class="fas fa-envelope"></i> Email: ezlearning@gmail.com</p>
             <p><i class="fas fa-phone"></i> Phone: +123-456-7890</p>
             <p><i class="fas fa-map-marker-alt"></i> Jalan Kaliurang No. 123, Jogja, Indonesia</p>
+            <a href="admin.php"><input type="button" value="Admin"></a>
             <p>&nbsp;&nbsp;</p>
             <p>&copy; 2024 EzLearning. All rights reserved.</p>
         </div>
